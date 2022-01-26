@@ -1,9 +1,10 @@
 const express = require("express")
 const router = express.Router()
-const {create} = require("../controllers/Products")
+const {create,getAll} = require("../controllers/Products")
 
 
 router.route("/create").post(create)
+router.route("/all").get(getAll)
 
 
 

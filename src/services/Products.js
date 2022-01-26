@@ -22,10 +22,18 @@ const createProduct = async (product) => {
     return data;
 }
 
+const allProducts = async () => {
+    var params = {
+        TableName: process.env.TABLE_PRODUCTS,
+        Select: "ALL_ATTRIBUTES"
+    };
+    const data = await docClient.scan(params).promise();
+    return data;
+}
 
 
 
 
 
 
-module.exports = { createProduct }
+module.exports = { createProduct, allProducts}
