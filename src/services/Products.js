@@ -6,7 +6,6 @@ var docClient = new AWS.DynamoDB.DocumentClient()
 const createProduct = async (product) => {
     var params = {
         TableName: process.env.TABLE_PRODUCTS,
-        "ConditionExpression": "attribute_not_exists(productId)",
         Item: {
             "productId": uuidv4(),
             "stock": product.stock,
@@ -48,7 +47,7 @@ const getDiscountedProducts = async () => {
         Select: "ALL_ATTRIBUTES"
     };
     const data = await docClient.scan(params).promise();
-    const filtered = data.Items.filter(p=>p.isDiscount)
+    const filtered = data.Items.filter(p=>p.isDiscount) //Tüm ürünleri çekip o rüünler üzerinde isDiscount true olanları filtreleme
     return filtered;
 }
 
@@ -58,9 +57,9 @@ const removeProduct = async (productId) => {
         Key: {
             "productId": productId,
         },
-        ConditionExpression:"isDiscount = :val",
+        ConditionExpression:"isDiscount = :val",  //Discount, :val durumuna eşit olursa silme işlemi gerçekleşir.
         ExpressionAttributeValues: {
-        ":val": false
+        ":val": false                            //:val değerine false atanıyor
     }
     };
     const data = await docClient.delete(params).promise();
@@ -73,9 +72,9 @@ const updateProduct = async (productId,newStock) => {
         Key:{
             "productId": productId,
         },
-        UpdateExpression: "set stock = :stock",
+        UpdateExpression: "set stock = :stock", //Tablodaki stock, :stock değerine eşitleniyor. 
         ExpressionAttributeValues:{
-            ":stock":newStock,
+            ":stock":newStock,                 //:stock, newStock değerine eşitleniyor. newStock req.body'den gelen yeni stock.
         },
         ReturnValues:"UPDATED_NEW"
     };

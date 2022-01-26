@@ -4,8 +4,8 @@ const loaders = require("./loaders")
 const app = express();
 app.use(express.json())
 
-config();
-loaders();
+config();   //  .env dosyasından gelen verileri almak için...
+loaders();  // veritabanına bağlanmak için...
 
 const {productRoutes} = require("./routes")
 
