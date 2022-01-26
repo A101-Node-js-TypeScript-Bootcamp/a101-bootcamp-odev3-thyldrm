@@ -1,5 +1,5 @@
 const httpStatus = require("http-status");
-const {createProduct,allProducts,getSingleProduct,getDiscountedProducts,removeProduct} = require("../services/Products")
+const {createProduct,allProducts,getSingleProduct,getDiscountedProducts,removeProduct,updateProduct} = require("../services/Products")
 
 const create = async (req, res) => {
     createProduct(req.body).then((response)=>{
@@ -51,7 +51,14 @@ const deleteProduct = async(req, res) => {
     })
 }
 
+const updateProductStock = async(req, res) => {
+    updateProduct(req.params.productId,req.body.stock).then((response)=>{
+        res.status(httpStatus.OK).send(Object.assign({ status: true, message: "Ürün stoğu güncellendi" }, response))
+    }).catch((err)=>{
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ status: false, message: err })
+    })
+}
 
 
 
-module.exports = {create,getAll,getProduct,getDiscounted,deleteProduct}
+module.exports = {create,getAll,getProduct,getDiscounted,deleteProduct,updateProductStock}

@@ -67,7 +67,20 @@ const removeProduct = async (productId) => {
     return data;
 }
 
+const updateProduct = async (productId,newStock) => {
+    var params = {
+        TableName: process.env.TABLE_PRODUCTS,
+        Key:{
+            "productId": productId,
+        },
+        UpdateExpression: "set stock = :stock",
+        ExpressionAttributeValues:{
+            ":stock":newStock,
+        },
+        ReturnValues:"UPDATED_NEW"
+    };
+    const data = await docClient.update(params).promise();
+    return data;
+}
 
-
-
-module.exports = { createProduct, allProducts,getSingleProduct,getDiscountedProducts,removeProduct }
+module.exports = { createProduct, allProducts,getSingleProduct,getDiscountedProducts,removeProduct,updateProduct }
