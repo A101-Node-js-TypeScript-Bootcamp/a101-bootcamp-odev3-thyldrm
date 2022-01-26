@@ -7,7 +7,9 @@ app.use(express.json())
 config();
 loaders();
 
+const {productRoutes} = require("./routes")
 
+app.use("/",productRoutes)
 
 app.listen(process.env.APP_PORT, () => {
     console.log(`Sunucu ${process.env.APP_PORT}'de çalıştı.`);
