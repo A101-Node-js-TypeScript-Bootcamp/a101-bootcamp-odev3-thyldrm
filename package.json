@@ -1,0 +1,26 @@
+{
+  "name": "odev3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A101-Node-js-TypeScript-Bootcamp/a101-bootcamp-odev3-thyldrm.git"
+  },
+  "author": "thyldrm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/A101-Node-js-TypeScript-Bootcamp/a101-bootcamp-odev3-thyldrm/issues"
+  },
+  "homepage": "https://github.com/A101-Node-js-TypeScript-Bootcamp/a101-bootcamp-odev3-thyldrm#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1063.0",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "http-status": "^1.5.0"
+  }
+}
