@@ -1,5 +1,5 @@
 const httpStatus = require("http-status");
-const {createProduct,allProducts,getSingleProduct,getDiscountedProducts} = require("../services/Products")
+const {createProduct,allProducts,getSingleProduct,getDiscountedProducts,removeProduct} = require("../services/Products")
 
 const create = async (req, res) => {
     createProduct(req.body).then((response)=>{
@@ -33,8 +33,25 @@ const getDiscounted = async(req, res) => {
     })
 }
 
+const deleteProduct = async(req, res) => {
+    if(!req.params?.productId) {
+        return res.status(httpStatus.BAD_REQUEST).send({
+            message: "ID bilgisi eksik"
+        })
+    }
+    removeProduct(req.params.productId).then((response)=>{
+        if(!response) {
+            return res.status(httpStatus.NOT_FOUND).send({
+                message : "Kayıt bulunamamaktadır."
+            })
+        }
+        res.status(httpStatus.OK).send(Object.assign({ status: true, message: "Ürün silindi" }))
+    }).catch(()=>{
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ status: false, message: "Ürüne ait bir indirim var." })
+    })
+}
 
 
 
 
-module.exports = {create,getAll,getProduct,getDiscounted}
+module.exports = {create,getAll,getProduct,getDiscounted,deleteProduct}

@@ -52,7 +52,22 @@ const getDiscountedProducts = async () => {
     return filtered;
 }
 
+const removeProduct = async (productId) => {
+    var params = {
+        TableName: process.env.TABLE_PRODUCTS,
+        Key: {
+            "productId": productId,
+        },
+        ConditionExpression:"isDiscount = :val",
+        ExpressionAttributeValues: {
+        ":val": false
+    }
+    };
+    const data = await docClient.delete(params).promise();
+    return data;
+}
 
 
 
-module.exports = { createProduct, allProducts,getSingleProduct,getDiscountedProducts}
+
+module.exports = { createProduct, allProducts,getSingleProduct,getDiscountedProducts,removeProduct }
