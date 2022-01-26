@@ -31,9 +31,18 @@ const allProducts = async () => {
     return data;
 }
 
+const getSingleProduct = async (productId) => {
+    var params = {
+        TableName: process.env.TABLE_PRODUCTS,
+        Key:{
+            "productId":productId
+        }
+    };
+    const data = await docClient.get(params).promise();
+    return data;
+}
 
 
 
 
-
-module.exports = { createProduct, allProducts}
+module.exports = { createProduct, allProducts,getSingleProduct}
