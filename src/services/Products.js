@@ -42,7 +42,17 @@ const getSingleProduct = async (productId) => {
     return data;
 }
 
+const getDiscountedProducts = async () => {
+    var params = {
+        TableName: process.env.TABLE_PRODUCTS,
+        Select: "ALL_ATTRIBUTES"
+    };
+    const data = await docClient.scan(params).promise();
+    const filtered = data.Items.filter(p=>p.isDiscount)
+    return filtered;
+}
 
 
 
-module.exports = { createProduct, allProducts,getSingleProduct}
+
+module.exports = { createProduct, allProducts,getSingleProduct,getDiscountedProducts}
